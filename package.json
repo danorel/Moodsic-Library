@@ -1,0 +1,22 @@
+{
+    "name": "moodsic",
+    "version": "1.0.0",
+    "description": "Personalised emotional-based music generation platform",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/danorel/Moodsik.git"
+    },
+    "keywords": [
+        "music"
+    ],
+    "author": "Danyil Orel, Olia Perch",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/danorel/Moodsik/issues"
+    },
+    "homepage": "https://github.com/danorel/Moodsik#readme"
+}
