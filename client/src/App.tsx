@@ -1,6 +1,6 @@
 import React from 'react';
 import { Switch, Route, BrowserRouter } from 'react-router-dom';
-import './App.css';
+import './public/stylesheets/App.css';
 
 import Landing from "./modules/landing/Landing";
 

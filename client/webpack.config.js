@@ -6,6 +6,7 @@ const TerserWebpackPlugin = require("terser-webpack-plugin");
 const OptimizeCssAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 const CleanWebpackPlugin = require('clean-webpack-plugin').CleanWebpackPlugin;
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
 
 module.exports = function(_env, argv) {
     const isProduction = argv.mode === "production";
@@ -13,7 +14,7 @@ module.exports = function(_env, argv) {
     return {
         mode: 'development',
         devtool: 'inline-source-map',
-        entry: "./src/index.tsx",
+        entry: path.resolve(__dirname, "./src/index.tsx"),
         output: {
             filename: 'bundle-[contenthash].js',
             path: path.resolve(__dirname, 'dist')
@@ -74,7 +75,7 @@ module.exports = function(_env, argv) {
             ]
         },
         resolve: {
-            extensions: [".js", ".jsx", ".ts", ".tsx"]
+            extensions: ['.ts', '.tsx', '.js', '.jsx', '.css']
         },
         optimization: {
             minimize: isProduction,
@@ -115,6 +116,7 @@ module.exports = function(_env, argv) {
             runtimeChunk: "single"
         },
         plugins: [
+            new CaseSensitivePathsPlugin(),
             new CleanWebpackPlugin(),
             new CopyWebpackPlugin({
                 patterns: [
