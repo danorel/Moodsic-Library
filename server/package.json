@@ -8,6 +8,12 @@
         "development": "nodemon",
         "production": "npm run build && npm run start"
     },
+    "jest": {
+        "testEnvironment": "node",
+        "coveragePathIgnorePatterns": [
+            "/node_modules/"
+        ]
+    },
     "dependencies": {
         "cookie-parser": "~1.4.4",
         "debug": "~2.6.9",
