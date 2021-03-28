@@ -1,7 +1,7 @@
 import { StateType, ActionType } from 'typesafe-actions';
 import { Epic } from 'redux-observable';
 
-declare module 'MyTypes' {
+declare module 'CustomTypes' {
     export type Store = StateType<typeof import('./index').default>;
     export type RootState = StateType<ReturnType<typeof import('./reducer').default>>;
     export type RootAction = ActionType<typeof import('./action').default>;
