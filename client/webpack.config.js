@@ -1,23 +1,23 @@
-const path = require("path");
+const path = require('path');
 const webpack = require('webpack');
-const HtmlWebpackPlugin = require("html-webpack-plugin");
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const TerserWebpackPlugin = require("terser-webpack-plugin");
-const OptimizeCssAssetsPlugin = require("optimize-css-assets-webpack-plugin");
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const TerserWebpackPlugin = require('terser-webpack-plugin');
+const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin').CleanWebpackPlugin;
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
 
-module.exports = function(_env, argv) {
-    const isProduction = argv.mode === "production";
+module.exports = function (_env, argv) {
+    const isProduction = argv.mode === 'production';
 
     return {
         mode: 'development',
         devtool: 'inline-source-map',
-        entry: path.resolve(__dirname, "./src/index.tsx"),
+        entry: path.resolve(__dirname, './src/index.tsx'),
         output: {
             filename: 'bundle-[contenthash].js',
-            path: path.resolve(__dirname, 'dist')
+            path: path.resolve(__dirname, 'dist'),
         },
         module: {
             rules: [
@@ -32,12 +32,12 @@ module.exports = function(_env, argv) {
                         loader: 'babel-loader',
                         options: {
                             compact: false,
-                            presets: [["es2015", {"modules": false, "loose" : true}], 'react'],
+                            presets: [['es2015', { modules: false, loose: true }], 'react'],
                             cacheDirectory: true,
                             cacheCompression: false,
-                            envName: isProduction ? "production" : "development"
-                        }
-                    }
+                            envName: isProduction ? 'production' : 'development',
+                        },
+                    },
                 },
                 {
                     test: /\.(sa|sc|c)ss$/,
@@ -54,28 +54,28 @@ module.exports = function(_env, argv) {
                 {
                     test: /\.(png|jpg|gif)$/i,
                     use: {
-                        loader: "url-loader",
+                        loader: 'url-loader',
                         options: {
                             limit: 8192,
-                            name: "src/public/assets/media/[name].[hash:8].[ext]"
-                        }
-                    }
+                            name: 'src/public/assets/media/[name].[hash:8].[ext]',
+                        },
+                    },
                 },
                 {
                     test: /\.svg$/,
-                    use: ["@svgr/webpack"]
+                    use: ['@svgr/webpack'],
                 },
                 {
                     test: /\.(eot|otf|ttf|woff|woff2)$/,
-                    loader: require.resolve("file-loader"),
+                    loader: require.resolve('file-loader'),
                     options: {
-                        name: "src/public/assets/media/[name].[hash:8].[ext]"
-                    }
-                }
-            ]
+                        name: 'src/public/assets/media/[name].[hash:8].[ext]',
+                    },
+                },
+            ],
         },
         resolve: {
-            extensions: ['.ts', '.tsx', '.js', '.jsx', '.css']
+            extensions: ['.ts', '.tsx', '.js', '.jsx', '.css'],
         },
         optimization: {
             minimize: isProduction,
@@ -83,19 +83,19 @@ module.exports = function(_env, argv) {
                 new TerserWebpackPlugin({
                     terserOptions: {
                         compress: {
-                            comparisons: false
+                            comparisons: false,
                         },
                         mangle: {
-                            safari10: true
+                            safari10: true,
                         },
                         output: {
                             comments: false,
-                            ascii_only: true
+                            ascii_only: true,
                         },
-                        warnings: false
-                    }
+                        warnings: false,
+                    },
                 }),
-                new OptimizeCssAssetsPlugin()
+                new OptimizeCssAssetsPlugin(),
             ],
             splitChunks: {
                 cacheGroups: {
@@ -103,17 +103,17 @@ module.exports = function(_env, argv) {
                         name: 'styles',
                         test: /\.css$/,
                         chunks: 'all',
-                        enforce: true
+                        enforce: true,
                     },
                     vendor: {
                         chunks: 'initial',
                         test: 'vendor',
                         name: 'vendor',
-                        enforce: true
-                    }
-                }
+                        enforce: true,
+                    },
+                },
             },
-            runtimeChunk: "single"
+            runtimeChunk: 'single',
         },
         plugins: [
             new CaseSensitivePathsPlugin(),
@@ -124,12 +124,11 @@ module.exports = function(_env, argv) {
                         from: '**/*',
                         context: path.resolve(__dirname, 'src', 'public', 'assets'),
                         to: './assets',
-                        noErrorOnMissing: true
+                        noErrorOnMissing: true,
                     },
                 ],
             }),
-            !isProduction &&
-            new webpack.HotModuleReplacementPlugin(),
+            !isProduction && new webpack.HotModuleReplacementPlugin(),
             new HtmlWebpackPlugin({
                 template: 'src/public/index.html',
                 filename: 'index.html',
@@ -144,20 +143,18 @@ module.exports = function(_env, argv) {
                 filename: 'style-[hash].css',
             }),
             new webpack.DefinePlugin({
-                "process.env.NODE_ENV": JSON.stringify(
-                    isProduction ? "production" : "development"
-                )
-            })
+                'process.env.NODE_ENV': JSON.stringify(isProduction ? 'production' : 'development'),
+            }),
         ].filter(Boolean),
         devServer: {
             hot: true,
-            host: "localhost",
+            host: 'localhost',
             port: 3000,
             open: true,
             overlay: true,
             compress: true,
             historyApiFallback: true,
-            contentBase: path.join(__dirname, 'dist')
-        }
+            contentBase: path.join(__dirname, 'dist'),
+        },
     };
 };

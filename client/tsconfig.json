@@ -75,7 +75,5 @@
         /* Enables experimental support for emitting type metadata for decorators. */
         "jsx": "react"
     },
-    "exclude": [
-        "./node_modules"
-    ]
+    "exclude": ["./node_modules"]
 }

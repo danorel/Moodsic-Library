@@ -12,7 +12,7 @@ app.set('view engine', 'jade');
 
 app.use(logger('dev'));
 app.use(express.json());
-app.use(express.urlencoded({extended: false}));
+app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -35,6 +35,6 @@ app.use((err: HttpError, req: Response, res: Response, next: NextFunction) => {
     next();
 });
 
-app.listen(3000, () => console.log("Listening to the server onn port 3000."))
+app.listen(3000, () => console.log('Listening to the server onn port 3000.'));
 
 module.exports = app;

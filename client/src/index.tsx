@@ -1,12 +1,12 @@
-import React from "react";
-import ReactDOM from "react-dom";
+import React from 'react';
+import ReactDOM from 'react-dom';
 
-import { hot } from "react-hot-loader/root";
+import { hot } from 'react-hot-loader/root';
 
 import './public/stylesheets/index.css';
 
-import App from './App';
+import Main from './routes/Main';
 
-const render = (Component: () => JSX.Element) : any => ReactDOM.render(<Component />, document.getElementById('root'));
+const render = (Component: () => JSX.Element): any => ReactDOM.render(<Component />, document.getElementById('root'));
 
-render(hot(App));
+render(hot(Main));
