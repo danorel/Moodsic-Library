@@ -1,3 +1,4 @@
+import 'tslib';
 import React from 'react';
 import ReactDOM from 'react-dom';
 
@@ -9,4 +10,5 @@ import Main from './routes/Main';
 
 const render = (Component: () => JSX.Element): any => ReactDOM.render(<Component />, document.getElementById('root'));
 
-render(hot(Main));
+// render(hot(Main));
+render(Main);
