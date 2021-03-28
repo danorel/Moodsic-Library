@@ -1,16 +1,17 @@
 {
     "compilerOptions": {
-        "target": "es6",
+        "target": "es5",
+        "module": "commonjs",
         "lib": [
             "dom",
             "dom.iterable"
         ],
         "jsx": "react",
-        "outDir": "./build/",
+        "declaration": true,
+        "outDir": "./dist/",
         "noEmit": true,
         "allowJs": true,
         "strict": true,
-        "module": "commonjs",
         "sourceMap": true,
         "skipLibCheck": true,
         "removeComments": true,
@@ -21,9 +22,15 @@
         "forceConsistentCasingInFileNames": true,
         "noFallthroughCasesInSwitch": true,
         "resolveJsonModule": true,
-        "isolatedModules": true
+        "isolatedModules": false,
+        "experimentalDecorators": true,
+        "emitDecoratorMetadata": true,
+        "typeRoots": [
+            "node_modules/@types",
+            "src/typings.d.ts"
+        ]
     },
-    "include": [
-        "src"
+    "exclude": [
+        "node_modules"
     ]
 }
