@@ -9,12 +9,15 @@
         "@types/jest": "^26.0.22",
         "@types/node": "^12.20.7",
         "@types/react-router-dom": "^5.1.7",
+        "connected-react-router": "^6.9.1",
         "http-proxy-middleware": "^1.0.6",
         "react": "^17.0.2",
         "react-dom": "^17.0.2",
         "react-hot-loader": "^4.13.0",
+        "react-redux": "^7.2.3",
         "react-router-dom": "^5.2.0",
-        "react-scripts": "^4.0.3"
+        "react-scripts": "^4.0.3",
+        "typesafe-actions": "^5.1.0"
     },
     "scripts": {
         "test": "react-scripts test",
@@ -60,6 +63,7 @@
         "postcss-import": "^14.0.0",
         "postcss-loader": "^5.2.0",
         "prettier": "^2.2.1",
+        "redux-observable": "^1.2.0",
         "sass-loader": "^11.0.1",
         "source-map-loader": "^2.0.1",
         "style-loader": "^2.0.0",
