@@ -56,7 +56,7 @@ module.exports = function(_env, argv) {
                         loader: "url-loader",
                         options: {
                             limit: 8192,
-                            name: "src/assets/media/[name].[hash:8].[ext]"
+                            name: "src/public/assets/media/[name].[hash:8].[ext]"
                         }
                     }
                 },
@@ -68,7 +68,7 @@ module.exports = function(_env, argv) {
                     test: /\.(eot|otf|ttf|woff|woff2)$/,
                     loader: require.resolve("file-loader"),
                     options: {
-                        name: "src/assets/media/[name].[hash:8].[ext]"
+                        name: "src/public/assets/media/[name].[hash:8].[ext]"
                     }
                 }
             ]
@@ -120,15 +120,16 @@ module.exports = function(_env, argv) {
                 patterns: [
                     {
                         from: '**/*',
-                        context: path.resolve(__dirname, 'src', 'assets'),
+                        context: path.resolve(__dirname, 'src', 'public', 'assets'),
                         to: './assets',
+                        noErrorOnMissing: true
                     },
                 ],
             }),
             !isProduction &&
             new webpack.HotModuleReplacementPlugin(),
             new HtmlWebpackPlugin({
-                template: 'public/index.html',
+                template: 'src/public/index.html',
                 filename: 'index.html',
                 minify: {
                     collapseWhitespace: true,
