@@ -1,11 +1,12 @@
 import React from 'react';
 
-interface LandingProps {}
+import RegistrationView from './Registration/RegistrationView';
 
-export default function Landing(props: React.FC<LandingProps>) {
+export default function Landing() {
     return (
-        <div>
-            <i>Hello, it's me!</i>
-        </div>
+        <React.Fragment>
+            Landing
+            <RegistrationView />
+        </React.Fragment>
     );
 }
