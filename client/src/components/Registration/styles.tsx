@@ -3,14 +3,19 @@ import styled from 'styled-components';
 export const DivFrame = styled.div`
     background: #ffd770;
     border-radius: 40px;
-    width: 540px;
+    width: 480px;
+    padding: 15px;
+`;
+
+export const TabContainer = styled.div`
+    width: 100%;
 `;
 
 export const TabSignUp = styled.div`
     font-family: Montserrat;
     font-style: normal;
     font-weight: bold;
-    font-size: 30px;
+    font-size: 24px;
     line-height: 37px;
     display: flex;
     align-items: center;
@@ -23,7 +28,7 @@ export const TabSignIn = styled.div`
     font-family: Montserrat;
     font-style: normal;
     font-weight: bold;
-    font-size: 30px;
+    font-size: 24px;
     line-height: 37px;
     display: flex;
     align-items: center;
@@ -33,7 +38,7 @@ export const TabSignIn = styled.div`
 `;
 
 export const TabDivider = styled.div`
-    border: 5px solid #1a3b70;
+    border: 3px solid #1a3b70;
 `;
 
 export const InputField = styled.input`
@@ -54,8 +59,8 @@ export const DivTitle = styled.div`
     font-family: Montserrat;
     font-style: normal;
     font-weight: 600;
-    font-size: 34px;
-    line-height: 41px;
+    font-size: 24px;
+    line-height: 24px;
     display: flex;
     align-items: center;
     text-align: center;
@@ -69,8 +74,9 @@ export const ButtonSignUp = styled.button`
     font-family: Montserrat;
     font-style: normal;
     font-weight: 600;
-    font-size: 28px;
-    line-height: 34px;
+    font-size: 18px;
+    padding: 12px;
+    line-height: 18px;
     display: flex;
     align-items: center;
     text-align: center;
