@@ -1,5 +1,25 @@
 import styled from 'styled-components';
 
+export const DivBackground = styled.div`
+    min-height: 100vh;
+    min-width: 100vw;
+    text-align: center;
+    position: relative;
+    background: linear-gradient(180deg, #ffffff 0%, #ffffff 20.31%, rgba(255, 255, 255, 0) 100%), #d1f7ff;
+`;
+
+export const DivInner = styled.div`
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    display: flex;
+    justify-content: center;
+`;
+
 export const DivFrame = styled.div`
     background: #ffd770;
     border-radius: 40px;
@@ -48,9 +68,9 @@ export const InputField = styled.input`
     font-family: Montserrat;
     font-style: normal;
     font-weight: 600;
-    font-size: 21.6038px;
-    line-height: 26px;
-    padding: 10px;
+    font-size: 18px;
+    line-height: 22px;
+    padding: 12px;
 
     color: rgba(0, 0, 0, 0.47);
 `;

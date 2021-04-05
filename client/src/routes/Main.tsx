@@ -16,14 +16,12 @@ export default function Main() {
     return (
         <Provider store={store}>
             <ConnectedRouter history={history}>
-                <>
-                    <BrowserRouter>
-                        <Switch>
-                            <Route exact path="/" render={LandingView} />
-                            <Route path="/login" render={AuthenticationView} />
-                        </Switch>
-                    </BrowserRouter>
-                </>
+                <BrowserRouter>
+                    <Switch>
+                        <Route exact path="/" component={LandingView} />
+                        <Route path="/authentication" component={AuthenticationView} />
+                    </Switch>
+                </BrowserRouter>
             </ConnectedRouter>
         </Provider>
     );

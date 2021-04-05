@@ -1,34 +1,39 @@
-import React from 'react';
-import styled from 'styled-components';
+import React, { useEffect, useState } from 'react';
 
-import RegistrationView from '../Registration/RegistrationView';
+import { Grid } from '@material-ui/core';
 
-const DivBackground = styled.div`
-    min-height: 100vh;
-    min-width: 100vw;
-    text-align: center;
-    position: relative;
-    background: linear-gradient(180deg, #ffffff 0%, #ffffff 20.31%, rgba(255, 255, 255, 0) 100%), #d1f7ff;
-`;
+import TabsView from './modules/Tabs';
+import TitleView from './modules/Title';
+import FormView from './modules/Form';
 
-const DivInner = styled.div`
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 100%;
-    -webkit-transform: translate(-50%, -50%);
-    -ms-transform: translate(-50%, -50%);
-    transform: translate(-50%, -50%);
-    display: flex;
-    justify-content: center;
-`;
+import { DivFrame, DivBackground, DivInner } from './styles';
 
 export default function AuthenticationView() {
+    const [email, setEmail] = useState<string>('');
+    const [isSignIn, setSignIn] = useState<boolean>(true);
+
+    const onClickForm = () => {};
+
+    const onClickTab = (newSignIn: boolean) => setSignIn(newSignIn);
+    const onChangeEmail = (event: React.ChangeEvent<HTMLInputElement>) => setEmail(event.target.value);
+
     return (
         <React.Fragment>
             <DivBackground>
                 <DivInner>
-                    <RegistrationView />
+                    <DivFrame>
+                        <Grid container direction="column" justify="center" alignItems="center" spacing={3}>
+                            <Grid item>
+                                <TabsView isSignIn={isSignIn} onClick={onClickTab} />
+                            </Grid>
+                            <Grid item>
+                                <TitleView isSignIn={isSignIn} />
+                            </Grid>
+                            <Grid item>
+                                <FormView value={email} isSignIn={isSignIn} onClick={onClickForm} onChange={onChangeEmail} />
+                            </Grid>
+                        </Grid>
+                    </DivFrame>
                 </DivInner>
             </DivBackground>
         </React.Fragment>
