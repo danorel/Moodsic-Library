@@ -24,7 +24,7 @@
         }
     },
     "lint-staged": {
-        "**/*": "prettier --write \"{src/**/*.(tsx|ts)}\" --ignore-unknown"
+        "**/*": "prettier --write \"./src/**/*.{tsx,ts}\" --ignore-unknown"
     },
     "eslintConfig": {
         "extends": [
