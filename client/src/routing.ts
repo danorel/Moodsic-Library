@@ -3,6 +3,7 @@ const pathsMap = {
     cards: (userName: string) => `/${userName}/cards`,
     playlist: (userName: string, playlistId: string) => `/${userName}/playlist/${playlistId}`,
     playground: (userName: string) => `/${userName}/playground`,
+    authentication: () => '/authentication',
 };
 type PathsMap = typeof pathsMap;
 

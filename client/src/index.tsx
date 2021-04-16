@@ -8,7 +8,6 @@ import './public/stylesheets/index.css';
 
 import Main from './routes/Main';
 
-const render = (Component: () => JSX.Element): any => ReactDOM.render(<Component />, document.getElementById('root'));
+const hydrate = (Component: () => JSX.Element): any => ReactDOM.render(<Component />, document.getElementById('root'));
 
-// render(hot(Main));
-render(Main);
+hydrate(hot(Main));

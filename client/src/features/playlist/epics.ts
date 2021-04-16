@@ -1,7 +1,8 @@
-import CustomTypes from 'CustomTypes';
 import { from, of } from 'rxjs';
 import { filter, switchMap, map, catchError } from 'rxjs/operators';
 import { isActionOf } from 'typesafe-actions';
+
+import CustomTypes from 'RootTypes';
 
 import { loadPlaylistsAsync, createPlaylistsAsync, deletePlaylistAsync } from './actions';
 
