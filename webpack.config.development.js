@@ -9,26 +9,10 @@ const CleanWebpackPlugin = require('clean-webpack-plugin').CleanWebpackPlugin;
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
 
-const config = {
-    mode: 'development',
-    plugins: [new webpack.HotModuleReplacementPlugin()],
-    module: {
-        rules: [
-            {
-                test: /\.tsx?$/,
-                use: 'ts-loader',
-                exclude: /node_modules/,
-            },
-        ],
-    },
-    resolve: {
-        extensions: ['.tsx', '.ts', '.js'],
-        modules: ['src', 'node_modules'],
-    },
-};
+const { config } = require('./w.conf');
 
 const client = (isProduction) =>
-    Object.assign({}, config, {
+    Object.assign({}, config(isProduction), {
         name: 'client',
         target: 'web',
         devtool: 'inline-source-map',
@@ -54,7 +38,7 @@ const client = (isProduction) =>
                     },
                 },
                 {
-                    test: /\.(le|sa|sc|c)ss$/,
+                    test: /\.(sa|sc|c)ss$/,
                     use: [
                         {
                             loader: ExtractCssChunks.loader,
@@ -71,8 +55,7 @@ const client = (isProduction) =>
                         },
                         'css-loader',
                         'postcss-loader',
-                        'sass-loader',
-                        'less-loader',
+                        'sass-loader'
                     ],
                 },
                 {
@@ -96,10 +79,7 @@ const client = (isProduction) =>
                         name: 'src/client/public/assets/media/[name].[fullhash:8].[ext]',
                     },
                 },
-            ],
-        },
-        resolve: {
-            extensions: ['.ts', '.tsx', '.js', '.jsx', '.css'],
+            ]
         },
         optimization: {
             minimize: isProduction,
@@ -141,7 +121,12 @@ const client = (isProduction) =>
         },
         plugins: [
             new CaseSensitivePathsPlugin(),
-            new CleanWebpackPlugin(),
+            !isProduction && new webpack.HotModuleReplacementPlugin(),
+            new CleanWebpackPlugin({
+                dry: true,
+                verbose: isProduction,
+                dangerouslyAllowCleanPatternsOutsideProject: true
+            }),
             new CopyWebpackPlugin({
                 patterns: [
                     {
@@ -152,7 +137,6 @@ const client = (isProduction) =>
                     },
                 ],
             }),
-            !isProduction && new webpack.HotModuleReplacementPlugin(),
             new HtmlWebpackPlugin({
                 template: 'src/client/public/index.html',
                 filename: 'index.html',
@@ -176,16 +160,6 @@ const client = (isProduction) =>
                 'process.env.APP_VERSION': JSON.stringify(process.env.APP_VERSION),
             }),
         ].filter(Boolean),
-        devServer: {
-            hot: true,
-            host: 'localhost',
-            port: 3000,
-            open: true,
-            overlay: true,
-            compress: true,
-            historyApiFallback: true,
-            contentBase: path.join(__dirname, 'dist'),
-        },
         output: {
             filename: 'bundle-[contenthash].js',
             path: path.resolve(__dirname, 'build'),
@@ -193,19 +167,48 @@ const client = (isProduction) =>
     });
 
 const server = (isProduction) =>
-    Object.assign({}, config, {
+    Object.assign({}, config(isProduction), {
         name: 'server',
         target: 'node',
         externals: [nodeExternals()],
         entry: path.resolve(__dirname, 'src/server/index.tsx'),
+        module: {
+            rules: [
+                {
+                    test: /\.tsx?$/,
+                    loader: 'ts-loader',
+                },
+                {
+                    test: /\.(js|jsx)?$/,
+                    exclude: /(node_modules|bower_components)/,
+                    use: {
+                        loader: 'babel-loader',
+                        options: {
+                            compact: false,
+                            presets: [['es2015', { modules: false, loose: true }], 'react'],
+                            cacheDirectory: true,
+                            cacheCompression: false,
+                            envName: isProduction ? 'production' : 'development',
+                        },
+                    },
+                },
+            ]
+        },
+        plugins: [
+            !isProduction && new webpack.HotModuleReplacementPlugin(),
+            new webpack.DefinePlugin({
+                'process.env.NODE_ENV': isProduction ? '"production"': '"development"',
+                'process.env.BROWSER': JSON.stringify(true),
+                __DEV__: !isProduction
+            }),
+        ],
         output: {
-            filename: 'server.js',
-            path: path.resolve(__dirname, 'build'),
+            filename: "server.js",
+            path: path.resolve(__dirname, "build")
         },
     });
 
 module.exports = function (_env, argv) {
     const isProduction = argv.mode === 'production';
-
     return [client(isProduction), server(isProduction)];
 };

@@ -5,10 +5,11 @@
     "scripts": {
         "test": "jest",
         "test:watch": "jest --watch",
-        "build": "webpack",
-        "build-dev": "rimraf build && webpack --watch",
-        "development": "webpack serve --mode=development --progress",
-        "deploy": "webpack --config webpack.config.production.js"
+        "build:watch": "rimraf build && webpack --watch --config webpack.config.development.js",
+        "build:production": "rimraf build && webpack --config webpack.config.production.js",
+        "launch:watch": "nodemon build/server.js",
+        "launch:production": "node build/server.js",
+        "start:production": "npm run build:production && npm run launch:production"
     },
     "jest": {
         "testEnvironment": "node",
@@ -23,24 +24,12 @@
         }
     },
     "lint-staged": {
-        "**/*": "prettier --write \"{src/**/*.tsx,server/**/*.ts}\" --ignore-unknown"
+        "**/*": "prettier --write \"{src/**/*.(tsx|ts)}\" --ignore-unknown"
     },
     "eslintConfig": {
         "extends": [
             "react-app",
             "react-app/jest"
-        ]
-    },
-    "browserslist": {
-        "production": [
-            ">0.2%",
-            "not dead",
-            "not op_mini all"
-        ],
-        "development": [
-            "last 1 chrome version",
-            "last 1 firefox version",
-            "last 1 safari version"
         ]
     },
     "dependencies": {
@@ -59,6 +48,7 @@
         "connected-react-router": "^6.9.1",
         "cookie-parser": "^1.4.5",
         "express": "^4.17.1",
+        "global": "^4.4.0",
         "http-proxy-middleware": "^1.0.6",
         "jest": "^26.6.3",
         "morgan": "^1.10.0",
@@ -96,6 +86,7 @@
         "lint-staged": "^10.5.4",
         "mini-css-extract-plugin": "^1.4.1",
         "node-sass": "^5.0.0",
+        "nodemon": "^2.0.7",
         "optimize-css-assets-webpack-plugin": "^5.0.4",
         "postcss": "^8.2.8",
         "postcss-cssnext": "^3.1.0",
