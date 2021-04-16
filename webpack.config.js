@@ -2,7 +2,7 @@ const path = require('path');
 const webpack = require('webpack');
 const nodeExternals = require('webpack-node-externals');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const ExtractCssChunks = require('extract-css-chunks-webpack-plugin');
 const TerserWebpackPlugin = require('terser-webpack-plugin');
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin').CleanWebpackPlugin;
@@ -54,15 +54,25 @@ const client = (isProduction) =>
                     },
                 },
                 {
-                    test: /\.(sa|sc|c)ss$/,
+                    test: /\.(le|sa|sc|c)ss$/,
                     use: [
                         {
-                            loader: MiniCssExtractPlugin.loader,
-                            options: {},
+                            loader: ExtractCssChunks.loader,
+                            options: {
+                                publicPath: (resourcePath, context) => {
+                                    // publicPath is the relative path of the resource to the context
+                                    // e.g. for ./css/admin/main.css the publicPath will be ../../
+                                    // while for ./css/main.css the publicPath will be ../
+                                    return path.relative(path.dirname(resourcePath), context) + '/src/client/public';
+                                },
+                                hot: !isProduction,
+                                reloadAll: !isProduction,
+                            },
                         },
                         'css-loader',
                         'postcss-loader',
                         'sass-loader',
+                        'less-loader',
                     ],
                 },
                 {
@@ -153,8 +163,13 @@ const client = (isProduction) =>
                     useShortDoctype: true,
                 },
             }),
-            new MiniCssExtractPlugin({
-                filename: 'style-[hash].css',
+            new ExtractCssChunks({
+                filename: !isProduction ? '[name].css' : '[name].[hash].css',
+                chunkFilename: !isProduction ? '[id].css' : '[id].[hash].css',
+                ignoreOrder: false,
+            }),
+            new webpack.optimize.LimitChunkCountPlugin({
+                maxChunks: 1,
             }),
             new webpack.DefinePlugin({
                 'process.env.NODE_ENV': JSON.stringify(isProduction ? 'production' : 'development'),

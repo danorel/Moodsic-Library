@@ -1,10 +1,10 @@
 import React from 'react';
+
 import { Switch, Route } from 'react-router';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { ConnectedRouter } from 'connected-react-router';
 
-import '../../client/public/stylesheets/App.css';
 require('typeface-montserrat');
 
 import LandingView from '../features/landing/components/Landing';

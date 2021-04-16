@@ -28,7 +28,7 @@ function main() {
             </ReduxProvider>
         );
 
-        FS.readFile(Path.resolve('..', 'dist', 'index.html'), 'utf-8', (err, data) => {
+        FS.readFile(Path.resolve('build', 'index.html'), 'utf-8', (err, data) => {
             if (err) return next(err);
             return res.send(data.replace('<div id="root"></div>', `<div id="root">${appHTML}</div>`));
         });
