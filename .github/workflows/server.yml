@@ -1,10 +1,10 @@
 # This is a basic workflow to help you get started with Actions
 
-name: CI-Server-Branch
+name: CI-Development::Server
 
 # Controls when the action will run. 
 on:
-  # Triggers the workflow on push or pull request events but only for the master branch
+  # Triggers the workflow on push or pull request events but only for the server branch
   push:
     branches: [ server ]
   pull_request:
@@ -31,8 +31,8 @@ jobs:
       
       - name: Run Tests
         run: |
-          echo Running Tests for the React Client...
-          cd client 
+          echo Running Tests for the Node.js Server...
+          cd server 
           npm install
           npm run test
           
