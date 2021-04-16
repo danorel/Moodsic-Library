@@ -1,0 +1,10 @@
+export declare const DivBackground: import("styled-components").StyledComponent<"div", any, {}, never>;
+export declare const DivInner: import("styled-components").StyledComponent<"div", any, {}, never>;
+export declare const DivFrame: import("styled-components").StyledComponent<"div", any, {}, never>;
+export declare const TabContainer: import("styled-components").StyledComponent<"div", any, {}, never>;
+export declare const TabSignUp: import("styled-components").StyledComponent<"div", any, {}, never>;
+export declare const TabSignIn: import("styled-components").StyledComponent<"div", any, {}, never>;
+export declare const TabDivider: import("styled-components").StyledComponent<"div", any, {}, never>;
+export declare const InputField: import("styled-components").StyledComponent<"input", any, {}, never>;
+export declare const DivTitle: import("styled-components").StyledComponent<"div", any, {}, never>;
+export declare const ButtonSignUp: import("styled-components").StyledComponent<"button", any, {}, never>;
