@@ -1,6 +1,5 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom/server';
-import * as Redux from "redux";
 import { Provider as ReduxProvider } from 'react-redux';
 import { StaticRouter as Router } from 'react-router-dom';
 import Express from 'express';
@@ -16,8 +15,6 @@ function main() {
     app.use(Express.static('build'));
 
     app.get('/*', (req: Express.Request, res: Express.Response, next: Express.NextFunction) => {
-        // const store = Redux.createStore(store);
-
         const appHTML = ReactDOM.renderToString(
             <ReduxProvider store={store}>
                 <Router location={req.path} context={{}}>
@@ -36,7 +33,7 @@ function main() {
         next();
     });
 
-    const server = app.listen(3000, () => console.log('Listening to the server onn port 3000.'));
+    const server = app.listen(5000, () => console.log('Listening to the server onn port 5000.'));
 
     if (module.hot) {
         module.hot.accept();
@@ -44,7 +41,7 @@ function main() {
     }
 }
 
-const indexHTML = (template: string, initialState: string) => {`
+const indexHTML = (template: string, initialState: string) => `
     <!DOCTYPE html>
     <html lang="en">
         <head>
@@ -55,12 +52,13 @@ const indexHTML = (template: string, initialState: string) => {`
             <title>Moodsic</title>
         </head>
         <body>
-             <div id="root">${template}</div>
-                <script>
-                    window["__PRELOADED_STATE__"] = ${initialState}
-                </script>
+             <main id="root">${template}</main>
+             <script>
+                 window["__PRELOADED_STATE__"] = ${initialState}
+             </script>
+             <script type="application/javascript" src="bundle.js"></script>
         </body>
     </html>
-`}
+`
 
 main();

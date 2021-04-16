@@ -8,8 +8,6 @@ import './public/stylesheets/index.css';
 
 import Main from '../common/routes/Main';
 
-// import store, { history } from '../common/store';
-
 const preloadedState = (window as any)["__PRELOADED_STATE__"];
 delete (window as any)["__PRELOADED_STATE__"];
 
