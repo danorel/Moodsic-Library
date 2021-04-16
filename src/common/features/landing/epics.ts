@@ -1,9 +1,8 @@
-import { tap, ignoreElements, filter, first, map } from 'rxjs/operators';
+import CustomTypes from 'RootTypes';
+import { filter, first, ignoreElements, map, tap } from 'rxjs/operators';
 import { isActionOf } from 'typesafe-actions';
 
-import CustomTypes from 'RootTypes';
-
-import { loadPlaylistsAsync, createPlaylistsAsync, deletePlaylistAsync } from '../playlist/actions';
+import { createPlaylistsAsync, deletePlaylistAsync, loadPlaylistsAsync } from '../playlist/actions';
 
 export const persistPlaylistsInLocalStorage: CustomTypes.RootEpic = (action$, store, { localStorage }) =>
     action$.pipe(

@@ -2,7 +2,7 @@ import { Playlist } from 'MyModels';
 import { combineReducers } from 'redux';
 import { createReducer } from 'typesafe-actions';
 
-import { loadPlaylistsAsync, createPlaylistsAsync, deletePlaylistAsync } from './actions';
+import { createPlaylistsAsync, deletePlaylistAsync, loadPlaylistsAsync } from './actions';
 
 const reducer = combineReducers({
     isLoadingPlaylists: createReducer(false as boolean)

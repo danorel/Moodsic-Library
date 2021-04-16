@@ -1,4 +1,5 @@
 import { compose } from 'redux';
+
 const window = require('global/window');
 
 declare global {

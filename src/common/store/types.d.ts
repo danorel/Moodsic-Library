@@ -1,5 +1,5 @@
-import { StateType, ActionType } from 'typesafe-actions';
 import { Epic } from 'redux-observable';
+import { ActionType, StateType } from 'typesafe-actions';
 
 declare module 'RootTypes' {
     export type Store = StateType<typeof import('./index').default>;

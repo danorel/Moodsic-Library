@@ -1,6 +1,6 @@
 declare module 'MyModels' {
-    export type Playlist = {
+    export interface Playlist {
         id: string;
         name: string;
-    };
+    }
 }

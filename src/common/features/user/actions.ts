@@ -1,5 +1,5 @@
-import { User } from 'UserModels';
 import { createAsyncAction } from 'typesafe-actions';
+import { User } from 'UserModels';
 
 export const loadUserAsync = createAsyncAction('LOAD_PLAYLIST_REQUEST', 'LOAD_USER_SUCCESS', 'LOAD_PLAYLIST_FAILURE')<User, User, string>();
 

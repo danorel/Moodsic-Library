@@ -1,5 +1,6 @@
 const path = require('path');
 const webpack = require('webpack');
+const { merge } = require('webpack-merge');
 const nodeExternals = require('webpack-node-externals');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractCssChunks = require('extract-css-chunks-webpack-plugin');
@@ -9,34 +10,18 @@ const CleanWebpackPlugin = require('clean-webpack-plugin').CleanWebpackPlugin;
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
 
-const { config } = require('./w.conf');
+const common = require('./webpack.config.base.js')(null, {
+    mode: 'development'
+});
 
 const client = (isProduction) =>
-    Object.assign({}, config(isProduction), {
+    merge(common,{
         name: 'client',
         target: 'web',
         devtool: 'inline-source-map',
         entry: path.resolve(__dirname, 'src/client/index.tsx'),
         module: {
             rules: [
-                {
-                    test: /\.tsx?$/,
-                    loader: 'ts-loader',
-                },
-                {
-                    test: /\.(js|jsx)?$/,
-                    exclude: /(node_modules|bower_components)/,
-                    use: {
-                        loader: 'babel-loader',
-                        options: {
-                            compact: false,
-                            presets: [['es2015', { modules: false, loose: true }], 'react'],
-                            cacheDirectory: true,
-                            cacheCompression: false,
-                            envName: isProduction ? 'production' : 'development',
-                        },
-                    },
-                },
                 {
                     test: /\.(sa|sc|c)ss$/,
                     use: [
@@ -54,7 +39,6 @@ const client = (isProduction) =>
                             },
                         },
                         'css-loader',
-                        'postcss-loader',
                         'sass-loader'
                     ],
                 },
@@ -121,7 +105,6 @@ const client = (isProduction) =>
         },
         plugins: [
             new CaseSensitivePathsPlugin(),
-            !isProduction && new webpack.HotModuleReplacementPlugin(),
             new CleanWebpackPlugin({
                 dry: true,
                 verbose: isProduction,
@@ -167,35 +150,12 @@ const client = (isProduction) =>
     });
 
 const server = (isProduction) =>
-    Object.assign({}, config(isProduction), {
+    merge(common, {
         name: 'server',
         target: 'node',
         externals: [nodeExternals()],
         entry: path.resolve(__dirname, 'src/server/index.tsx'),
-        module: {
-            rules: [
-                {
-                    test: /\.tsx?$/,
-                    loader: 'ts-loader',
-                },
-                {
-                    test: /\.(js|jsx)?$/,
-                    exclude: /(node_modules|bower_components)/,
-                    use: {
-                        loader: 'babel-loader',
-                        options: {
-                            compact: false,
-                            presets: [['es2015', { modules: false, loose: true }], 'react'],
-                            cacheDirectory: true,
-                            cacheCompression: false,
-                            envName: isProduction ? 'production' : 'development',
-                        },
-                    },
-                },
-            ]
-        },
         plugins: [
-            !isProduction && new webpack.HotModuleReplacementPlugin(),
             new webpack.DefinePlugin({
                 'process.env.NODE_ENV': isProduction ? '"production"': '"development"',
                 'process.env.BROWSER': JSON.stringify(true),

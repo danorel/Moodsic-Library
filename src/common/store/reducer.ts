@@ -1,8 +1,8 @@
-import { combineReducers } from 'redux';
 import { History } from 'history';
+import { combineReducers } from 'redux';
 
-import user from '../features/user/reducer';
 import playlists from '../features/playlist/reducer';
+import user from '../features/user/reducer';
 
 const rootReducer = () =>
     combineReducers({

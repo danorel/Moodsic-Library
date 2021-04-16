@@ -1,10 +1,9 @@
+import CustomTypes from 'RootTypes';
 import { from, of } from 'rxjs';
-import { filter, switchMap, map, catchError } from 'rxjs/operators';
+import { catchError, filter, map, switchMap } from 'rxjs/operators';
 import { isActionOf } from 'typesafe-actions';
 
-import CustomTypes from 'RootTypes';
-
-import { loadUserAsync, createUserAsync } from './actions';
+import { createUserAsync, loadUserAsync } from './actions';
 
 export const loadUserEpic: CustomTypes.RootEpic = (action$, state$, { api }) =>
     action$.pipe(

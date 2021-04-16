@@ -1,7 +1,10 @@
 const { merge } = require('webpack-merge');
-const common = require('./webpack.config.development.js')(null, { mode: 'production' });
 
-module.exports = merge(common, {
+const [client, server] = require('./webpack.config.development.js')(null, {
+    mode: 'production'
+});
+
+const production = (config) => merge(config, {
     mode: 'production',
     module: {
         rules: [
@@ -16,3 +19,10 @@ module.exports = merge(common, {
         ],
     },
 });
+
+module.exports = function (_env) {
+    return [
+        production(client),
+        production(server)
+    ];
+};
