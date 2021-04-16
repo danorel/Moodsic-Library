@@ -11,7 +11,7 @@ export default function Main() {
         <React.Fragment>
             <Switch>
                 <Route exact path={getPath('home')} component={LandingView} />
-                {/*<Route path={getPath('authentication')} component={AuthenticationView} />*/}
+                <Route path={getPath('authentication')} component={AuthenticationView} />
             </Switch>
         </React.Fragment>
     );

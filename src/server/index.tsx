@@ -1,14 +1,12 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom/server';
+import * as Redux from "redux";
 import { Provider as ReduxProvider } from 'react-redux';
 import { StaticRouter as Router } from 'react-router-dom';
-
 import Express from 'express';
-import Path from 'path';
-import FS from 'fs';
 
 import Main from '../common/routes/Main';
-// import store from '../common/store';
+import store from '../common/store';
 
 declare const module: any;
 
@@ -18,19 +16,23 @@ function main() {
     app.use(Express.static('build'));
 
     app.get('/*', (req: Express.Request, res: Express.Response, next: Express.NextFunction) => {
+        // const store = Redux.createStore(store);
+
         const appHTML = ReactDOM.renderToString(
-            // <ReduxProvider store={store}>
+            <ReduxProvider store={store}>
                 <Router location={req.path} context={{}}>
                     <Main />
                 </Router>
-            // </ReduxProvider>
+            </ReduxProvider>
         );
 
-        FS.readFile(Path.resolve('build', 'index.html'), 'utf-8', (err, data) => {
-            if (err) return next(err);
-            return res.send(data.replace('<div id="root"></div>', `<div id="root">${appHTML}</div>`));
-        });
+        const appInitialState = JSON.stringify(store.getState()).replace(
+            /</g,
+            "\\u003c"
+        );
 
+        res.send(indexHTML(appHTML, appInitialState))
+        res.end();
         next();
     });
 
@@ -41,5 +43,24 @@ function main() {
         module.hot.dispose(() => server.close());
     }
 }
+
+const indexHTML = (template: string, initialState: string) => {`
+    <!DOCTYPE html>
+    <html lang="en">
+        <head>
+            <meta charset="utf-8" />
+            <meta name="viewport" content="width=device-width, initial-scale=1" />
+            <meta name="theme-color" content="#000000" />
+            <meta name="description" content="Listen music with emotions" />
+            <title>Moodsic</title>
+        </head>
+        <body>
+             <div id="root">${template}</div>
+                <script>
+                    window["__PRELOADED_STATE__"] = ${initialState}
+                </script>
+        </body>
+    </html>
+`}
 
 main();

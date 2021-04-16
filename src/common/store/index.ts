@@ -1,7 +1,5 @@
 import { createStore, applyMiddleware, Store, AnyAction, Action } from 'redux';
 import { createEpicMiddleware } from 'redux-observable';
-import { createBrowserHistory } from 'history';
-import { routerMiddleware } from 'connected-react-router';
 
 import { composeEnhancers } from './utils';
 import rootReducer from './reducer';
@@ -14,10 +12,8 @@ export const epicMiddleware = createEpicMiddleware<RootAction, RootAction, RootS
     dependencies: services,
 });
 
-export const history = createBrowserHistory();
-
 // configure middlewares
-const middlewares = [routerMiddleware(history), epicMiddleware];
+const middlewares = [epicMiddleware];
 
 // compose enhancers
 const enhancer = composeEnhancers(applyMiddleware(...middlewares));
@@ -26,7 +22,7 @@ const initialState = {};
 
 // create store
 let store: Store<unknown, AnyAction> & Store<any, Action> & { dispatch: unknown } = createStore(
-    rootReducer(history),
+    rootReducer(),
     initialState,
     enhancer
 );

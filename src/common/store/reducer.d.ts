@@ -1,7 +1,4 @@
-/// <reference types="connected-react-router" />
-import { History } from 'history';
-declare const rootReducer: (history: History<any>) => import("redux").Reducer<import("redux").CombinedState<{
-    router: import("connected-react-router").RouterState<any>;
+declare const rootReducer: () => import("redux").Reducer<import("redux").CombinedState<{
     playlists: import("redux").CombinedState<{
         isLoadingPlaylists: any;
         playlists: any;
