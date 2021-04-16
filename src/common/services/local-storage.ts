@@ -2,7 +2,7 @@ const version = process.env.APP_VERSION || 0;
 const PREFIX = `MY_APP_v${version}::`;
 
 export function set<T = object>(key: string, value: T): void {
-    if (!localStorage) {
+    if (typeof window === 'undefined' || !localStorage) {
         return;
     }
 
@@ -15,7 +15,7 @@ export function set<T = object>(key: string, value: T): void {
 }
 
 export function get<T = object>(key: string): T | undefined {
-    if (!localStorage) {
+    if (typeof window === 'undefined' || !localStorage) {
         return;
     }
 
