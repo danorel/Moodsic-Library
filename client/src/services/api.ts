@@ -3,7 +3,7 @@ import { User } from 'UserModels';
 
 import * as localStorage from './local-storage';
 
-let user: User = localStorage.get<User>('user') || ({ email: '' } as User);
+let user: User = localStorage.get<User>('user') || ({ email: 'your-email@gmail.com' } as User);
 let playlists: Playlist[] = localStorage.get<Playlist[]>('playlists') || [];
 
 const TIMEOUT = 750;
