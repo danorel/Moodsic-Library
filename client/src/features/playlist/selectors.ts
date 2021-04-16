@@ -1,3 +1,3 @@
-import CustomTypes from 'CustomTypes';
+import RootTypes from 'RootTypes';
 
-export const getPlaylists = (state: CustomTypes.RootState) => state.playlists.playlists;
+export const selectPlaylists = (state: RootTypes.RootState) => state.playlists.playlists;

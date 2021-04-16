@@ -7,10 +7,11 @@ import { ConnectedRouter } from 'connected-react-router';
 import '../public/stylesheets/App.css';
 require('typeface-montserrat');
 
-import LandingView from '../components/Landing';
-import AuthenticationView from '../components/Authentication/index';
+import LandingView from '../features/landing/components/Landing';
+import AuthenticationView from '../features/user/components';
 
 import store, { history } from '../store';
+import { getPath } from '../routing';
 
 export default function Main() {
     return (
@@ -18,8 +19,8 @@ export default function Main() {
             <ConnectedRouter history={history}>
                 <BrowserRouter>
                     <Switch>
-                        <Route exact path="/" component={LandingView} />
-                        <Route path="/authentication" component={AuthenticationView} />
+                        <Route exact path={getPath('home')} component={LandingView} />
+                        <Route path={getPath('authentication')} component={AuthenticationView} />
                     </Switch>
                 </BrowserRouter>
             </ConnectedRouter>

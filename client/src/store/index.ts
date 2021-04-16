@@ -1,4 +1,3 @@
-import CustomTypes from 'CustomTypes';
 import { createStore, applyMiddleware, Store, AnyAction, Action } from 'redux';
 import { createEpicMiddleware } from 'redux-observable';
 import { createBrowserHistory } from 'history';
@@ -9,22 +8,20 @@ import rootReducer from './reducer';
 import rootEpic from './epics';
 import services from '../services';
 
-export const epicMiddleware = createEpicMiddleware<
-    CustomTypes.RootAction,
-    CustomTypes.RootAction,
-    CustomTypes.RootState,
-    CustomTypes.Services
->({
+import { RootAction, RootState, Services } from 'RootTypes';
+
+export const epicMiddleware = createEpicMiddleware<RootAction, RootAction, RootState, Services>({
     dependencies: services,
 });
 
-// configure middlewares
 export const history = createBrowserHistory();
+
+// configure middlewares
 const middlewares = [routerMiddleware(history), epicMiddleware];
+
 // compose enhancers
 const enhancer = composeEnhancers(applyMiddleware(...middlewares));
 
-// rehydrate state on app start
 const initialState = {};
 
 // create store
