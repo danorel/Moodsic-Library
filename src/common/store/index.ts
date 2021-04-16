@@ -21,11 +21,7 @@ const enhancer = composeEnhancers(applyMiddleware(...middlewares));
 const initialState = {};
 
 // create store
-let store: Store<unknown, AnyAction> & Store<any, Action> & { dispatch: unknown } = createStore(
-    rootReducer(),
-    initialState,
-    enhancer
-);
+let store: Store<unknown, AnyAction> & Store<any, Action> & { dispatch: unknown } = createStore(rootReducer(), initialState, enhancer);
 
 epicMiddleware.run(rootEpic);
 

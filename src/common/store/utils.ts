@@ -1,5 +1,5 @@
 import { compose } from 'redux';
-const window = require("global/window")
+const window = require('global/window');
 
 declare global {
     interface Window {
