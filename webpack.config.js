@@ -71,7 +71,7 @@ const client = (isProduction) =>
                         loader: 'url-loader',
                         options: {
                             limit: 8192,
-                            name: 'src/public/assets/media/[name].[hash:8].[ext]',
+                            name: 'src/client/public/assets/media/[name].[fullhash:8].[ext]',
                         },
                     },
                 },
@@ -83,7 +83,7 @@ const client = (isProduction) =>
                     test: /\.(eot|otf|ttf|woff|woff2)$/,
                     loader: require.resolve('file-loader'),
                     options: {
-                        name: 'src/public/assets/media/[name].[hash:8].[ext]',
+                        name: 'src/client/public/assets/media/[name].[fullhash:8].[ext]',
                     },
                 },
             ],
@@ -136,7 +136,7 @@ const client = (isProduction) =>
                 patterns: [
                     {
                         from: '**/*',
-                        context: path.resolve(__dirname, 'src', 'public', 'assets'),
+                        context: path.resolve(__dirname, 'src', 'client', 'public', 'assets'),
                         to: './assets',
                         noErrorOnMissing: true,
                     },
