@@ -23,12 +23,9 @@ function main() {
             </ReduxProvider>
         );
 
-        const appInitialState = JSON.stringify(store.getState()).replace(
-            /</g,
-            "\\u003c"
-        );
+        const appInitialState = JSON.stringify(store.getState()).replace(/</g, '\\u003c');
 
-        res.send(indexHTML(appHTML, appInitialState))
+        res.send(indexHTML(appHTML, appInitialState));
         res.end();
         next();
     });
@@ -59,6 +56,6 @@ const indexHTML = (template: string, initialState: string) => `
              <script type="application/javascript" src="bundle.js"></script>
         </body>
     </html>
-`
+`;
 
 main();
