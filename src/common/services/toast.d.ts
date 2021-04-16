@@ -15,4 +15,4 @@ declare const info: (
         content: import('react-toastify').ToastContent,
         options?: import('react-toastify').ToastOptions | undefined
     ) => import('react').ReactText;
-export { info, warn, error, success };
+export { error, info, success, warn };

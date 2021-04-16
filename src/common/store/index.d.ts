@@ -1,7 +1,7 @@
 /// <reference path="../features/user/types.d.ts" />
 /// <reference path="../features/playlist/types.d.ts" />
 /// <reference types="connected-react-router" />
-import { Store, AnyAction, Action } from 'redux';
+import { Action, AnyAction, Store } from 'redux';
 export declare const epicMiddleware: import('redux-observable').EpicMiddleware<
     | import('connected-react-router').CallHistoryMethodAction<[import('history').LocationDescriptorObject<unknown>]>
     | import('connected-react-router').CallHistoryMethodAction<[number]>
@@ -57,7 +57,7 @@ export declare const epicMiddleware: import('redux-observable').EpicMiddleware<
         };
     }
 >;
-declare let store: Store<unknown, AnyAction> &
+declare const store: Store<unknown, AnyAction> &
     Store<any, Action> & {
         dispatch: unknown;
     };

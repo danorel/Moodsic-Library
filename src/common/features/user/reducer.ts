@@ -1,9 +1,8 @@
 import { combineReducers } from 'redux';
 import { createReducer } from 'typesafe-actions';
-
 import UserModels from 'UserModels';
 
-import { loadUserAsync, createUserAsync } from './actions';
+import { createUserAsync, loadUserAsync } from './actions';
 
 const reducer = combineReducers({
     isLoadingUser: createReducer(false as boolean)

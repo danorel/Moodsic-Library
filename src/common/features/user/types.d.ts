@@ -1,5 +1,5 @@
 declare module 'UserModels' {
-    export type User = {
+    export interface User {
         email: string;
-    };
+    }
 }

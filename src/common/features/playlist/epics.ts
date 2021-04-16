@@ -1,10 +1,9 @@
+import CustomTypes from 'RootTypes';
 import { from, of } from 'rxjs';
-import { filter, switchMap, map, catchError } from 'rxjs/operators';
+import { catchError, filter, map, switchMap } from 'rxjs/operators';
 import { isActionOf } from 'typesafe-actions';
 
-import CustomTypes from 'RootTypes';
-
-import { loadPlaylistsAsync, createPlaylistsAsync, deletePlaylistAsync } from './actions';
+import { createPlaylistsAsync, deletePlaylistAsync, loadPlaylistsAsync } from './actions';
 
 export const loadPlaylistsEpic: CustomTypes.RootEpic = (action$, state$, { api }) =>
     action$.pipe(

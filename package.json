@@ -3,6 +3,8 @@
     "version": "0.1.0",
     "private": true,
     "scripts": {
+        "lint": "eslint 'src/**/*.{js,ts,tsx}' --quiet --fix",
+        "format": "prettier --write \"./src/**/*.{js,tsx,ts}\" --ignore-unknown",
         "test": "jest",
         "test:watch": "jest --watch",
         "build:watch": "rimraf build && webpack --watch --config webpack.config.development.js",
@@ -24,7 +26,10 @@
         }
     },
     "lint-staged": {
-        "**/*": "prettier --write \"./src/**/*.{tsx,ts}\" --ignore-unknown"
+        "src/**/*.{js,tsx,ts}": "npm run format",
+        "src/**/*.{js,ts,tsx}": [
+            "npm run lint"
+        ]
     },
     "eslintConfig": {
         "extends": [
@@ -77,8 +82,13 @@
         "copy-webpack-plugin": "^8.1.0",
         "css-loader": "^5.2.1",
         "cssnano": "^4.1.10",
+        "eslint-config-prettier": "^8.2.0",
         "eslint-import-resolver-typescript": "^2.4.0",
         "eslint-plugin-import": "^2.22.1",
+        "eslint-plugin-jsdoc": "^32.3.0",
+        "eslint-plugin-prefer-arrow": "^1.2.3",
+        "eslint-plugin-prettier": "^3.4.0",
+        "eslint-plugin-simple-import-sort": "^7.0.0",
         "extract-css-chunks-webpack-plugin": "^4.9.0",
         "file-loader": "^6.2.0",
         "html-webpack-plugin": "^5.3.1",

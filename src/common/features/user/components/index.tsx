@@ -26,7 +26,9 @@ const AuthenticationView: React.FC<Props> = ({ user, isLoading }: Props) => {
     const [email, setEmail] = useState<string>('');
     const [isSignIn, setSignIn] = useState<boolean>(true);
 
-    const onClickForm = () => {};
+    const onClickForm = () => {
+        console.log('Submitting form');
+    };
 
     const onClickTab = (newSignIn: boolean) => setSignIn(newSignIn);
     const onChangeEmail = (event: React.ChangeEvent<HTMLInputElement>) => setEmail(event.target.value);
