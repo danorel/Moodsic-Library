@@ -5,7 +5,7 @@ import { isActionOf } from 'typesafe-actions';
 
 import { createUserAsync, loadUserAsync } from './actions';
 
-export const loadUserEpic: CustomTypes.RootEpic = (action$, state$, { api }) =>
+export const loadUserEpic: CustomTypes.RootEpic = (action$, _state$, { api }) =>
     action$.pipe(
         filter(isActionOf(loadUserAsync.request)),
         switchMap(() =>
@@ -16,7 +16,7 @@ export const loadUserEpic: CustomTypes.RootEpic = (action$, state$, { api }) =>
         )
     );
 
-export const createUserEpic: CustomTypes.RootEpic = (action$, state$, { api }) =>
+export const createUserEpic: CustomTypes.RootEpic = (action$, _state$, { api }) =>
     action$.pipe(
         filter(isActionOf(createUserAsync.request)),
         switchMap((action) =>

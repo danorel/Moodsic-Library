@@ -3,13 +3,13 @@ import { User } from 'UserModels';
 
 import * as localStorage from './local-storage';
 
-const user: User = localStorage.get<User>('user') || ({ email: '' } as User);
+let user: User = localStorage.get<User>('user') || ({ email: '' } as User);
 let playlists: Playlist[] = localStorage.get<Playlist[]>('playlists') || [];
 
 const TIMEOUT = 750;
 
 export function loadPlaylists(): Promise<Playlist[]> {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
         setTimeout(() => {
             resolve(playlists);
         }, TIMEOUT);
@@ -17,7 +17,7 @@ export function loadPlaylists(): Promise<Playlist[]> {
 }
 
 export function createPlaylist(playlist: Playlist): Promise<Playlist[]> {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
         setTimeout(() => {
             playlists = playlists.concat(playlist);
             resolve(playlists);
@@ -26,7 +26,7 @@ export function createPlaylist(playlist: Playlist): Promise<Playlist[]> {
 }
 
 export function deletePlaylist(playlist: Playlist): Promise<Playlist[]> {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
         setTimeout(() => {
             playlists = playlists.filter((i) => i.id !== playlist.id);
             resolve(playlists);
@@ -35,7 +35,7 @@ export function deletePlaylist(playlist: Playlist): Promise<Playlist[]> {
 }
 
 export function loadUser(): Promise<User> {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
         setTimeout(() => {
             resolve(user);
         }, TIMEOUT);
@@ -43,7 +43,7 @@ export function loadUser(): Promise<User> {
 }
 
 export function createUser(newUser: User): Promise<User> {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
         setTimeout(() => {
             resolve(newUser);
         }, TIMEOUT);

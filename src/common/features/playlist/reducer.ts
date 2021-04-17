@@ -6,12 +6,12 @@ import { createPlaylistsAsync, deletePlaylistAsync, loadPlaylistsAsync } from '.
 
 const reducer = combineReducers({
     isLoadingPlaylists: createReducer(false as boolean)
-        .handleAction([loadPlaylistsAsync.request], (state, action) => true)
-        .handleAction([loadPlaylistsAsync.success, loadPlaylistsAsync.failure], (state, action) => false),
+        .handleAction([loadPlaylistsAsync.request], (_state, _action) => true)
+        .handleAction([loadPlaylistsAsync.success, loadPlaylistsAsync.failure], (_state, _action) => false),
     playlists: createReducer([] as Playlist[])
         .handleAction(
             [loadPlaylistsAsync.success, createPlaylistsAsync.success, deletePlaylistAsync.success],
-            (state, action) => action.payload
+            (_state, action) => action.payload
         )
         .handleAction(createPlaylistsAsync.request, (state, action) => [...state, action.payload])
         .handleAction(deletePlaylistAsync.request, (state, action) => state.filter((i) => i.id !== action.payload.id))

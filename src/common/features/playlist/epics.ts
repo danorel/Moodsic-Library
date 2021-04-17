@@ -5,7 +5,7 @@ import { isActionOf } from 'typesafe-actions';
 
 import { createPlaylistsAsync, deletePlaylistAsync, loadPlaylistsAsync } from './actions';
 
-export const loadPlaylistsEpic: CustomTypes.RootEpic = (action$, state$, { api }) =>
+export const loadPlaylistsEpic: CustomTypes.RootEpic = (action$, _state$, { api }) =>
     action$.pipe(
         filter(isActionOf(loadPlaylistsAsync.request)),
         switchMap(() =>
@@ -16,7 +16,7 @@ export const loadPlaylistsEpic: CustomTypes.RootEpic = (action$, state$, { api }
         )
     );
 
-export const createPlaylistEpic: CustomTypes.RootEpic = (action$, state$, { api }) =>
+export const createPlaylistEpic: CustomTypes.RootEpic = (action$, _state$, { api }) =>
     action$.pipe(
         filter(isActionOf(createPlaylistsAsync.request)),
         switchMap((action) =>
@@ -27,7 +27,7 @@ export const createPlaylistEpic: CustomTypes.RootEpic = (action$, state$, { api 
         )
     );
 
-export const deletePlaylistEpic: CustomTypes.RootEpic = (action$, state$, { api, toast }) =>
+export const deletePlaylistEpic: CustomTypes.RootEpic = (action$, _state$, { api, toast }) =>
     action$.pipe(
         filter(isActionOf(deletePlaylistAsync.request)),
         switchMap((action) =>

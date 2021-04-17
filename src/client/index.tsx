@@ -1,6 +1,6 @@
-import * as React from 'react';
-import * as ReactDOM from 'react-dom';
-import * as Redux from 'redux';
+import React from 'react';
+import ReactDOM from 'react-dom';
+import Redux from 'redux';
 import { Provider as ReduxProvider } from 'react-redux';
 import { BrowserRouter as Router } from 'react-router-dom';
 

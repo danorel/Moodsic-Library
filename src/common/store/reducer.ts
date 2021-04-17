@@ -1,4 +1,3 @@
-import { History } from 'history';
 import { combineReducers } from 'redux';
 
 import playlists from '../features/playlist/reducer';

@@ -1,0 +1,42 @@
+.input__field {
+	background: #d1f7ff;
+	border-radius: 10px;
+
+	font-family: Montserrat;
+	font-style: normal;
+	font-weight: 600;
+	font-size: 18px;
+	line-height: 22px;
+	padding: 12px;
+
+	color: rgba(0, 0, 0, 0.47);
+}
+
+.div__title {
+	font-family: Montserrat;
+	font-style: normal;
+	font-weight: 600;
+	font-size: 24px;
+	line-height: 24px;
+	display: flex;
+	align-items: center;
+	text-align: center;
+
+	color: #1a3b70;
+}
+
+.button_sign_up {
+	background: #f4900c;
+	border-radius: 10px;
+	font-family: Montserrat;
+	font-style: normal;
+	font-weight: 600;
+	font-size: 18px;
+	padding: 12px;
+	line-height: 18px;
+	display: flex;
+	align-items: center;
+	text-align: center;
+
+	color: #1a3b70;
+}

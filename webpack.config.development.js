@@ -2,7 +2,6 @@ const path = require('path');
 const webpack = require('webpack');
 const { merge } = require('webpack-merge');
 const nodeExternals = require('webpack-node-externals');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractCssChunks = require('extract-css-chunks-webpack-plugin');
 const TerserWebpackPlugin = require('terser-webpack-plugin');
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
@@ -14,6 +13,50 @@ const common = require('./webpack.config.base.js')(null, {
     mode: 'development'
 });
 
+const CSSModuleLoader = {
+    loader: 'css-loader',
+    options: {
+        modules: true,
+        importLoaders: 2,
+        sourceMap: false, // turned off as causes delay
+    }
+}
+
+// For our normal CSS files we would like them globally scoped
+const CSSLoader = {
+    loader: 'css-loader',
+    options: {
+        modules: "global",
+        importLoaders: 2,
+        sourceMap: false, // turned off as causes delay
+    }
+}
+
+// Our PNG, JPG and GIF loader
+const ImageLoader = {
+    loader: 'url-loader',
+    options: {
+        limit: 8192,
+        name: 'src/assets/[name].[fullhash:8].[ext]',
+    },
+};
+
+// Our SVG loader
+const SVGLoader = {
+    loader: '@svgr/webpack',
+};
+
+// Our FontLoader
+const FontLoader = {
+    loader: require.resolve('file-loader'),
+    options: {
+        name: 'src/fonts/[name].[fullhash:8].[ext]',
+    },
+};
+
+// Our StyleLoader
+const StyleLoader = 'development' ? 'style-loader' : MiniCssExtractPlugin.loader;
+
 const client = (isProduction) =>
     merge(common,{
         name: 'client',
@@ -24,45 +67,25 @@ const client = (isProduction) =>
             rules: [
                 {
                     test: /\.(sa|sc|c)ss$/,
-                    use: [
-                        {
-                            loader: ExtractCssChunks.loader,
-                            options: {
-                                publicPath: (resourcePath, context) => {
-                                    // publicPath is the relative path of the resource to the context
-                                    // e.g. for ./css/admin/main.css the publicPath will be ../../
-                                    // while for ./css/main.css the publicPath will be ../
-                                    return path.relative(path.dirname(resourcePath), context) + '/src/client/public';
-                                },
-                                hot: !isProduction,
-                                reloadAll: !isProduction,
-                            },
-                        },
-                        'css-loader',
-                        'sass-loader'
-                    ],
+                    exclude: /\.module\.(sa|sc|c)ss$/,
+                    use: [StyleLoader, CSSLoader, "sass-loader"]
                 },
                 {
-                    test: /\.(png|jpg|gif)$/i,
-                    use: {
-                        loader: 'url-loader',
-                        options: {
-                            limit: 8192,
-                            name: 'src/client/public/assets/media/[name].[fullhash:8].[ext]',
-                        },
-                    },
-                },
-                {
-                    test: /\.svg$/,
-                    use: ['@svgr/webpack'],
+                    test: /\.module\.(sa|sc|c)ss$/,
+                    use: [StyleLoader, CSSModuleLoader, "sass-loader"]
                 },
                 {
                     test: /\.(eot|otf|ttf|woff|woff2)$/,
-                    loader: require.resolve('file-loader'),
-                    options: {
-                        name: 'src/client/public/assets/media/[name].[fullhash:8].[ext]',
-                    },
+                    use: [FontLoader]
                 },
+                {
+                    test: /\.svg$/,
+                    use: [SVGLoader]
+                },
+                {
+                    test: /\.(png|jpg|gif)$/i,
+                    use: [ImageLoader]
+                }
             ]
         },
         optimization: {
@@ -114,21 +137,11 @@ const client = (isProduction) =>
                 patterns: [
                     {
                         from: '**/*',
-                        context: path.resolve(__dirname, 'src', 'client', 'public', 'assets'),
+                        context: path.resolve(__dirname, 'src'),
                         to: './assets',
                         noErrorOnMissing: true,
                     },
                 ],
-            }),
-            new HtmlWebpackPlugin({
-                template: 'src/client/public/index.html',
-                filename: 'index.html',
-                minify: {
-                    collapseWhitespace: true,
-                    removeComments: true,
-                    removeRedundantAttributes: true,
-                    useShortDoctype: true,
-                },
             }),
             new ExtractCssChunks({
                 filename: !isProduction ? '[name].css' : '[name].[hash].css',
