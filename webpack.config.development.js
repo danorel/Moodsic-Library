@@ -7,6 +7,8 @@ const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin').CleanWebpackPlugin;
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const { TypedCssModulesPlugin } = require('typed-css-modules-webpack-plugin');
 
 const common = require('./webpack.config.base.js')(null, {
     mode: 'development'
@@ -20,19 +22,6 @@ const client = (isProduction) =>
         entry: path.resolve(__dirname, 'src/client/index.tsx'),
         module: {
             rules: [
-                {
-                    test: /\.css$/,
-                    use: [
-                        'style-loader',
-                        {
-                            loader: 'typings-for-css-modules-loader',
-                            options: {
-                                modules: true,
-                                namedExport: true
-                            }
-                        }
-                    ]
-                },
                 {
                     test: /\.(eot|otf|ttf|woff|woff2)$/,
                     use: [
@@ -105,6 +94,9 @@ const client = (isProduction) =>
             runtimeChunk: 'single',
         },
         plugins: [
+            new TypedCssModulesPlugin({
+                globPattern: 'src/**/*.css',
+            }),
             new CaseSensitivePathsPlugin(),
             new CleanWebpackPlugin({
                 dry: true,
@@ -156,6 +148,5 @@ const server = (isProduction) =>
 
 module.exports = function (_env, argv) {
     const isProduction = argv.mode === 'production';
-    console.log(client(isProduction).module);
     return [client(isProduction), server(isProduction)];
 };

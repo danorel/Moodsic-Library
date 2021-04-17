@@ -52,6 +52,7 @@
         "autoprefixer": "^10.2.5",
         "connected-react-router": "^6.9.1",
         "cookie-parser": "^1.4.5",
+        "css-modules-typescript-loader": "^4.0.1",
         "express": "^4.17.1",
         "global": "^4.4.0",
         "http-proxy-middleware": "^1.0.6",
@@ -67,6 +68,7 @@
         "react-toastify": "^7.0.3",
         "rxjs": "^6.6.6",
         "ts-jest": "^26.5.5",
+        "typed-css-modules-webpack-plugin": "^0.2.0",
         "typeface-montserrat": "^1.1.13",
         "typesafe-actions": "^5.1.0",
         "webpack-node-externals": "^2.5.2"

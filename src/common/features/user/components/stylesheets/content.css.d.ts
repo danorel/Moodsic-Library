@@ -1,3 +1,7 @@
-export const inputField: string;
-export const divTitle: string;
-export const buttonSignUp: string;
+declare const styles: {
+  readonly "buttonSignUp": string;
+  readonly "divTitle": string;
+  readonly "inputField": string;
+};
+export = styles;
+

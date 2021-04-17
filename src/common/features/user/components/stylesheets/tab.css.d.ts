@@ -1,4 +1,8 @@
-export const divTab: string;
-export const divTabDivider: string;
-export const divTabSignUp: string;
-export const divTabSignIn: string;
+declare const styles: {
+  readonly "divTab": string;
+  readonly "divTabDivider": string;
+  readonly "divTabSignIn": string;
+  readonly "divTabSignUp": string;
+};
+export = styles;
+
