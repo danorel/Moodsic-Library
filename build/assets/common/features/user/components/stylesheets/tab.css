@@ -1,0 +1,33 @@
+.div__tab {
+	width: 100%;
+}
+
+.div__tab_divider {
+	border: 3px solid #1a3b70;
+}
+
+.div__tab_sign_up {
+	font-family: Montserrat;
+	font-style: normal;
+	font-weight: bold;
+	font-size: 24px;
+	line-height: 37px;
+	display: flex;
+	align-items: center;
+	text-align: center;
+
+	color: #1a3b70;
+}
+
+.divTabSignIn {
+	font-family: Montserrat;
+	font-style: normal;
+	font-weight: bold;
+	font-size: 24px;
+	line-height: 37px;
+	display: flex;
+	align-items: center;
+	text-align: center;
+
+	color: #1a3b70;
+}

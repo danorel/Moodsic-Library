@@ -13,7 +13,7 @@ export default function TitleView({ isSignIn }: TitleViewProps) {
         <React.Fragment>
             <Grid container direction="row" justify="center" alignItems="center">
                 <Grid item>
-                    <div className={styles.divTitle}>{isSignIn ? 'Glad to see you again!' : 'Hello, musiclover :)'}</div>
+                    <div className={styles.div__title}>{isSignIn ? 'Glad to see you again!' : 'Hello, musiclover :)'}</div>
                 </Grid>
             </Grid>
         </React.Fragment>

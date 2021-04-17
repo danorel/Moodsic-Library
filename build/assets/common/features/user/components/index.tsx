@@ -38,9 +38,9 @@ const AuthenticationView: React.FC<Props> = ({ user, isLoading }: Props) => {
 
     return (
         <React.Fragment>
-            <div className={styles.divBackground}>
-                <div className={styles.divInner}>
-                    <div className={styles.divFrame}>
+            <div className={styles.div__background}>
+                <div className={styles.div__inner}>
+                    <div className={styles.div__frame}>
                         <Grid container direction="column" justify="center" alignItems="center" spacing={3}>
                             <Grid item>
                                 <TabsView isSignIn={isSignIn} onClick={onClickTab} />
