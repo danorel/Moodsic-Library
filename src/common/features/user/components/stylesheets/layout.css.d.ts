@@ -1,3 +1,7 @@
-export const divBackground: string;
-export const divInner: string;
-export const divFrame: string;
+declare const styles: {
+  readonly "divBackground": string;
+  readonly "divFrame": string;
+  readonly "divInner": string;
+};
+export = styles;
+
