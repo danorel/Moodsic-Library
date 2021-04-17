@@ -1,0 +1,26 @@
+.divBackground {
+	min-height: 100vh;
+	min-width: 100vw;
+	text-align: center;
+	position: relative;
+	background: linear-gradient(180deg, #ffffff 0%, #ffffff 20.31%, rgba(255, 255, 255, 0) 100%), #d1f7ff;
+}
+
+.divInner {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	width: 100%;
+	-webkit-transform: translate(-50%, -50%);
+	-ms-transform: translate(-50%, -50%);
+	transform: translate(-50%, -50%);
+	display: flex;
+	justify-content: center;
+}
+
+.divFrame {
+	background: #ffd770;
+	border-radius: 40px;
+	width: 480px;
+	padding: 15px;
+}

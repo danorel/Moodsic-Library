@@ -2,7 +2,6 @@ const path = require('path');
 const webpack = require('webpack');
 const { merge } = require('webpack-merge');
 const nodeExternals = require('webpack-node-externals');
-const ExtractCssChunks = require('extract-css-chunks-webpack-plugin');
 const TerserWebpackPlugin = require('terser-webpack-plugin');
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin').CleanWebpackPlugin;
@@ -13,50 +12,6 @@ const common = require('./webpack.config.base.js')(null, {
     mode: 'development'
 });
 
-const CSSModuleLoader = {
-    loader: 'css-loader',
-    options: {
-        modules: true,
-        importLoaders: 2,
-        sourceMap: false, // turned off as causes delay
-    }
-}
-
-// For our normal CSS files we would like them globally scoped
-const CSSLoader = {
-    loader: 'css-loader',
-    options: {
-        modules: "global",
-        importLoaders: 2,
-        sourceMap: false, // turned off as causes delay
-    }
-}
-
-// Our PNG, JPG and GIF loader
-const ImageLoader = {
-    loader: 'url-loader',
-    options: {
-        limit: 8192,
-        name: 'src/assets/[name].[fullhash:8].[ext]',
-    },
-};
-
-// Our SVG loader
-const SVGLoader = {
-    loader: '@svgr/webpack',
-};
-
-// Our FontLoader
-const FontLoader = {
-    loader: require.resolve('file-loader'),
-    options: {
-        name: 'src/fonts/[name].[fullhash:8].[ext]',
-    },
-};
-
-// Our StyleLoader
-const StyleLoader = 'development' ? 'style-loader' : MiniCssExtractPlugin.loader;
-
 const client = (isProduction) =>
     merge(common,{
         name: 'client',
@@ -66,25 +21,48 @@ const client = (isProduction) =>
         module: {
             rules: [
                 {
-                    test: /\.(sa|sc|c)ss$/,
-                    exclude: /\.module\.(sa|sc|c)ss$/,
-                    use: [StyleLoader, CSSLoader, "sass-loader"]
-                },
-                {
-                    test: /\.module\.(sa|sc|c)ss$/,
-                    use: [StyleLoader, CSSModuleLoader, "sass-loader"]
+                    test: /\.css$/,
+                    use: [
+                        'style-loader',
+                        {
+                            loader: 'typings-for-css-modules-loader',
+                            options: {
+                                modules: true,
+                                namedExport: true
+                            }
+                        }
+                    ]
                 },
                 {
                     test: /\.(eot|otf|ttf|woff|woff2)$/,
-                    use: [FontLoader]
+                    use: [
+                        {
+                            loader: require.resolve('file-loader'),
+                            options: {
+                                name: 'src/fonts/[name].[fullhash:8].[ext]',
+                            },
+                        }
+                    ]
                 },
                 {
                     test: /\.svg$/,
-                    use: [SVGLoader]
+                    use: [
+                        {
+                            loader: '@svgr/webpack',
+                        }
+                    ]
                 },
                 {
                     test: /\.(png|jpg|gif)$/i,
-                    use: [ImageLoader]
+                    use: [
+                        {
+                            loader: 'url-loader',
+                            options: {
+                                limit: 8192,
+                                name: 'src/assets/[name].[fullhash:8].[ext]',
+                            },
+                        }
+                    ]
                 }
             ]
         },
@@ -143,11 +121,6 @@ const client = (isProduction) =>
                     },
                 ],
             }),
-            new ExtractCssChunks({
-                filename: !isProduction ? '[name].css' : '[name].[hash].css',
-                chunkFilename: !isProduction ? '[id].css' : '[id].[hash].css',
-                ignoreOrder: false,
-            }),
             new webpack.optimize.LimitChunkCountPlugin({
                 maxChunks: 1,
             }),
@@ -183,5 +156,6 @@ const server = (isProduction) =>
 
 module.exports = function (_env, argv) {
     const isProduction = argv.mode === 'production';
+    console.log(client(isProduction).module);
     return [client(isProduction), server(isProduction)];
 };
