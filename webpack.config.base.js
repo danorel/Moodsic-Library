@@ -58,13 +58,13 @@ module.exports = (_env, argv) => ({
     plugins: argv.mode === 'production' ? [
         new webpack.HotModuleReplacementPlugin(),
         new MiniCssExtractPlugin({
-            filename: isProduction ? '[name].css' : '[name].[contenthash].css',
-            chunkFilename: isProduction ? '[id].css' : '[id].[contenthash].css',
+            filename: '[name].[contenthash].css',
+            chunkFilename: '[id].[contenthash].css',
         }),
     ] : [
         new MiniCssExtractPlugin({
-            filename: isProduction ? '[name].css' : '[name].[contenthash].css',
-            chunkFilename: isProduction ? '[id].css' : '[id].[contenthash].css',
+            filename: '[name].css',
+            chunkFilename: '[id].css'
         }),
     ]
 })
