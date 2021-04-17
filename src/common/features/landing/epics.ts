@@ -14,4 +14,4 @@ export const persistPlaylistsInLocalStorage: CustomTypes.RootEpic = (action$, st
         ignoreElements()
     );
 
-export const loadDataOnAppStart: CustomTypes.RootEpic = (action$, store, { api }) => action$.pipe(first(), map(loadPlaylistsAsync.request));
+export const loadDataOnAppStart: CustomTypes.RootEpic = (action$, _store) => action$.pipe(first(), map(loadPlaylistsAsync.request));

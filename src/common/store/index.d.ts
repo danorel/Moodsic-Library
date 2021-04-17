@@ -39,12 +39,12 @@ export declare const epicMiddleware: import('redux-observable').EpicMiddleware<
     | import('typesafe-actions').PayloadAction<'DELETE_PLAYLIST_FAILURE', import('MyModels').Playlist>,
     import('redux').CombinedState<{
         playlists: import('redux').CombinedState<{
-            isLoadingPlaylists: any;
-            playlists: any;
+            isLoadingPlaylists: boolean;
+            playlists: import('MyModels').Playlist[];
         }>;
         user: import('redux').CombinedState<{
-            isLoadingUser: any;
-            user: any;
+            isLoadingUser: import('UserModels').User;
+            user: import('UserModels').User;
         }>;
     }>,
     {

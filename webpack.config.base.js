@@ -1,16 +1,29 @@
+const path = require('path');
 const webpack = require('webpack');
 
 module.exports = (_env, argv) => ({
     mode: argv.mode,
     resolve: {
         extensions: ['.ts', '.tsx', '.js', '.jsx', '.css'],
-        modules: ['src', 'node_modules'],
+        modules: [
+            'src',
+            'src/client',
+            'src/common',
+            'src/server',
+            'node_modules'
+        ],
+        alias: {
+            common: path.resolve(__dirname, 'src/common/'),
+            client: path.resolve(__dirname, 'src/client/'),
+            server: path.resolve(__dirname, 'src/server/'),
+        }
     },
     module: {
         rules: [
             {
-                test: /\.tsx?$/,
-                loader: 'ts-loader',
+                test: /\.(ts|tsx)$/,
+                exclude: /node_modules/,
+                use: ["ts-loader"],
             },
             {
                 test: /\.(js|jsx)?$/,

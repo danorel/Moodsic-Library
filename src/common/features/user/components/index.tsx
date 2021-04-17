@@ -11,7 +11,7 @@ import { RootState } from 'RootTypes';
 
 import * as selectors from '../selectors';
 
-import { DivFrame, DivBackground, DivInner } from './styles';
+import styles from './stylesheets/layout.module.css';
 
 const mapStateToProps = (state: RootState) => ({
     isLoading: state.user.isLoadingUser,
@@ -28,6 +28,7 @@ const AuthenticationView: React.FC<Props> = ({ user, isLoading }: Props) => {
 
     const onClickForm = () => {
         console.log('Submitting form');
+        console.log(user);
     };
 
     const onClickTab = (newSignIn: boolean) => setSignIn(newSignIn);
@@ -37,9 +38,9 @@ const AuthenticationView: React.FC<Props> = ({ user, isLoading }: Props) => {
 
     return (
         <React.Fragment>
-            <DivBackground>
-                <DivInner>
-                    <DivFrame>
+            <div className={styles.div__background}>
+                <div className={styles.div__inner}>
+                    <div className={styles.div__frame}>
                         <Grid container direction="column" justify="center" alignItems="center" spacing={3}>
                             <Grid item>
                                 <TabsView isSignIn={isSignIn} onClick={onClickTab} />
@@ -51,9 +52,9 @@ const AuthenticationView: React.FC<Props> = ({ user, isLoading }: Props) => {
                                 <FormView value={email} isSignIn={isSignIn} onClick={onClickForm} onChange={onChangeEmail} />
                             </Grid>
                         </Grid>
-                    </DivFrame>
-                </DivInner>
-            </DivBackground>
+                    </div>
+                </div>
+            </div>
         </React.Fragment>
     );
 };

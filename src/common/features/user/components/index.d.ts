@@ -2,12 +2,12 @@
 import React from 'react';
 declare const _default: import('react-redux').ConnectedComponent<
     React.FC<{
-        isLoading: boolean;
+        isLoading: import('UserModels').User;
         user: import('UserModels').User;
     }>,
     import('react-redux').Omit<
         {
-            isLoading: boolean;
+            isLoading: import('UserModels').User;
             user: import('UserModels').User;
         },
         'user' | 'isLoading'

@@ -1,11 +1,11 @@
-import * as React from 'react';
-import * as ReactDOM from 'react-dom/server';
+import React from 'react';
+import ReactDOM from 'react-dom/server';
 import { Provider as ReduxProvider } from 'react-redux';
 import { StaticRouter as Router } from 'react-router-dom';
 import Express from 'express';
 
-import Main from '../common/routes/Main';
-import store from '../common/store';
+import Main from 'common/routes/Main';
+import store from 'common/store';
 
 declare const module: any;
 

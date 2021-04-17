@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Grid } from '@material-ui/core';
 
-import { InputField, ButtonSignUp } from '../styles';
+import styles from '../stylesheets/content.module.css';
 
 interface FormViewProps {
     value: string;
@@ -16,10 +16,12 @@ export default function FormView({ value, isSignIn, onClick, onChange }: FormVie
         <React.Fragment>
             <Grid container direction="column" justify="center" alignItems="center" spacing={2}>
                 <Grid item>
-                    <InputField value={value} placeholder={'Pass e-mail...'} onChange={onChange} />
+                    <input className={styles.input__field} value={value} placeholder={'Pass e-mail...'} onChange={onChange} />
                 </Grid>
                 <Grid item>
-                    <ButtonSignUp onClick={onClick}>{isSignIn ? "Let's go!" : 'Register me!'}</ButtonSignUp>
+                    <button className={styles.button_sign_up} onClick={onClick}>
+                        {isSignIn ? "Let's go!" : 'Register me!'}
+                    </button>
                 </Grid>
             </Grid>
         </React.Fragment>

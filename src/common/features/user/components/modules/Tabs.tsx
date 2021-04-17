@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Grid } from '@material-ui/core';
 
-import { TabContainer, TabSignIn, TabSignUp, TabDivider } from '../styles';
+import styles from '../stylesheets/tab.module.css';
 
 interface TabsViewProps {
     isSignIn: boolean;
@@ -12,18 +12,22 @@ interface TabsViewProps {
 export default function TabsView({ isSignIn, onClick }: TabsViewProps) {
     return (
         <React.Fragment>
-            <TabContainer>
+            <div className={styles.div__tab}>
                 <Grid container direction="row" justify="space-between" alignItems="flex-start" spacing={2}>
                     <Grid item>
-                        <TabSignIn onClick={() => onClick(true)}>Sign In</TabSignIn>
-                        {isSignIn ? <TabDivider /> : null}
+                        <div className={styles.div__tab_sign_in} onClick={() => onClick(true)}>
+                            Sign In
+                        </div>
+                        {isSignIn ? <div className={styles.div__tab_divider} /> : null}
                     </Grid>
                     <Grid item>
-                        <TabSignUp onClick={() => onClick(false)}>Sign Up</TabSignUp>
-                        {!isSignIn ? <TabDivider /> : null}
+                        <div className={styles.div__tab_sign_up} onClick={() => onClick(false)}>
+                            Sign Up
+                        </div>
+                        {!isSignIn ? <div className={styles.div__tab_divider} /> : null}
                     </Grid>
                 </Grid>
-            </TabContainer>
+            </div>
         </React.Fragment>
     );
 }
