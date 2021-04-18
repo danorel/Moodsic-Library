@@ -2,13 +2,12 @@ const path = require('path');
 const webpack = require('webpack');
 const { merge } = require('webpack-merge');
 const nodeExternals = require('webpack-node-externals');
-const TerserWebpackPlugin = require('terser-webpack-plugin');
-const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
-const CleanWebpackPlugin = require('clean-webpack-plugin').CleanWebpackPlugin;
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const TerserWebpackPlugin = require('terser-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const CleanWebpackPlugin = require('clean-webpack-plugin').CleanWebpackPlugin;
+const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin')
-const { TypedCssModulesPlugin } = require('typed-css-modules-webpack-plugin');
 
 const common = require('./webpack.config.base.js')(null, {
     mode: 'development'
@@ -22,6 +21,29 @@ const client = (isProduction) =>
         entry: path.resolve(__dirname, 'src/client/index.tsx'),
         module: {
             rules: [
+                {
+                    test: /\.css$/i,
+                    exclude: /node_modules/,
+                    use: [
+                        MiniCssExtractPlugin.loader,
+                        {
+                            loader: 'file-loader',
+                            options: {
+                                name: '[name].css',
+                                outputPath: 'stylesheets/'
+                            }
+                        },
+                        {
+                            loader: 'extract-loader'
+                        },
+                        {
+                            loader: 'css-loader',
+                            options: {
+                                modules: true,
+                            },
+                        },
+                    ],
+                },
                 {
                     test: /\.(eot|otf|ttf|woff|woff2)$/,
                     use: [
@@ -94,9 +116,6 @@ const client = (isProduction) =>
             runtimeChunk: 'single',
         },
         plugins: [
-            new TypedCssModulesPlugin({
-                globPattern: 'src/**/*.css',
-            }),
             new CaseSensitivePathsPlugin(),
             new CleanWebpackPlugin({
                 dry: true,
@@ -133,6 +152,37 @@ const server = (isProduction) =>
         target: 'node',
         externals: [nodeExternals()],
         entry: path.resolve(__dirname, 'src/server/index.tsx'),
+        module: {
+            rules: [
+                {
+                    test: /\.css$/i,
+                    exclude: /node_modules/,
+                    include: [
+                        path.resolve(__dirname, 'src'),
+                    ],
+                    use: [
+                        MiniCssExtractPlugin.loader,
+                        {
+                            loader: 'file-loader',
+                            options: {
+                                name: '[name].css',
+                                outputPath: 'stylesheets/'
+                            }
+                        },
+                        {
+                            loader: 'extract-loader'
+                        },
+                        {
+                            loader: 'css-loader',
+                            options: {
+                                modules: true,
+                                importLoaders: true,
+                            },
+                        },
+                    ],
+                },
+            ]
+        },
         plugins: [
             new webpack.DefinePlugin({
                 'process.env.NODE_ENV': isProduction ? '"production"': '"development"',
