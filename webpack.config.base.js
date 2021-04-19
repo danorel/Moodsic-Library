@@ -1,7 +1,6 @@
 const path = require('path');
 const webpack = require('webpack');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const { TypedCssModulesPlugin } = require('typed-css-modules-webpack-plugin');
 
 module.exports = (_env, argv) => ({
     mode: argv.mode,
@@ -43,22 +42,14 @@ module.exports = (_env, argv) => ({
             },
         ]
     },
-    plugins: argv.mode === 'production' ? [
-        new TypedCssModulesPlugin({
-            globPattern: 'src/**/*.css',
-        }),
+    plugins: argv.mode !== 'production' ? [
         new webpack.HotModuleReplacementPlugin(),
         new MiniCssExtractPlugin({
-            filename: '[name].[contenthash].css',
-            chunkFilename: '[id].[contenthash].css',
+            filename: 'stylesheets/[name].css',
         }),
     ] : [
-        new TypedCssModulesPlugin({
-            globPattern: 'src/**/*.css',
-        }),
         new MiniCssExtractPlugin({
-            filename: '[name].css',
-            chunkFilename: '[id].css'
+            filename: 'stylesheets/[name].css',
         }),
     ]
 })

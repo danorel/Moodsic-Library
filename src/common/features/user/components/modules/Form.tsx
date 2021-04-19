@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Grid } from '@material-ui/core';
 
-import styles from '../stylesheets/content.css';
+import styles from '../stylesheets/content.module.css';
 
 interface FormViewProps {
     value: string;

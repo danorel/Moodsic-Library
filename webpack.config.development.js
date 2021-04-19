@@ -22,8 +22,7 @@ const client = (isProduction) =>
         module: {
             rules: [
                 {
-                    test: /\.css$/i,
-                    exclude: /node_modules/,
+                    test: /\.css$/,
                     use: [
                         MiniCssExtractPlugin.loader,
                         {
@@ -39,10 +38,36 @@ const client = (isProduction) =>
                         {
                             loader: 'css-loader',
                             options: {
-                                modules: true,
-                            },
+                                importLoaders: 1,
+                                modules: true
+                            }
                         },
                     ],
+                    include: /\.module\.css$/
+                },
+                {
+                    test: /\.css$/,
+                    use: [
+                        MiniCssExtractPlugin.loader,
+                        {
+                            loader: 'file-loader',
+                            options: {
+                                name: '[name].css',
+                                outputPath: 'stylesheets/'
+                            }
+                        },
+                        {
+                            loader: 'extract-loader'
+                        },
+                        {
+                            loader: 'css-loader',
+                            options: {
+                                importLoaders: 1,
+                                modules: true
+                            }
+                        },
+                    ],
+                    exclude: /\.module\.css$/
                 },
                 {
                     test: /\.(eot|otf|ttf|woff|woff2)$/,
@@ -155,31 +180,26 @@ const server = (isProduction) =>
         module: {
             rules: [
                 {
-                    test: /\.css$/i,
-                    exclude: /node_modules/,
-                    include: [
-                        path.resolve(__dirname, 'src'),
-                    ],
+                    test: /\.css$/,
                     use: [
                         MiniCssExtractPlugin.loader,
                         {
-                            loader: 'file-loader',
-                            options: {
-                                name: '[name].css',
-                                outputPath: 'stylesheets/'
-                            }
-                        },
-                        {
-                            loader: 'extract-loader'
-                        },
-                        {
                             loader: 'css-loader',
                             options: {
-                                modules: true,
-                                importLoaders: true,
-                            },
+                                importLoaders: 1,
+                                modules: true
+                            }
                         },
                     ],
+                    include: /\.module\.css$/
+                },
+                {
+                    test: /\.css$/,
+                    use: [
+                        MiniCssExtractPlugin.loader,
+                        'css-loader',
+                    ],
+                    exclude: /\.module\.css$/
                 },
             ]
         },

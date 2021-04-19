@@ -46,6 +46,7 @@ const indexHTML = (template: string, initialState: string) => `
             <meta name="viewport" content="width=device-width, initial-scale=1" />
             <meta name="theme-color" content="#000000" />
             <meta name="description" content="Listen music with emotions" />
+            <link rel="stylesheet" href="stylesheets/main.css"/>
             <title>Moodsic</title>
         </head>
         <body>
