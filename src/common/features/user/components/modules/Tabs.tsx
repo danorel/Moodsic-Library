@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Grid } from '@material-ui/core';
 
-import styles from '../stylesheets/tab.css';
+import styles from '../stylesheets/tab.module.css';
 
 interface TabsViewProps {
     isSignIn: boolean;

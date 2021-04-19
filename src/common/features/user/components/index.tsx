@@ -11,7 +11,7 @@ import { RootState } from 'RootTypes';
 
 import * as selectors from '../selectors';
 
-import styles from './stylesheets/layout.css';
+import styles from './stylesheets/layout.module.css';
 
 const mapStateToProps = (state: RootState) => ({
     isLoading: state.user.isLoadingUser,
