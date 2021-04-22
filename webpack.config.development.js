@@ -161,6 +161,7 @@ const client = (isProduction) =>
                 maxChunks: 1,
             }),
             new webpack.DefinePlugin({
+                'global': {},
                 'process.env.NODE_ENV': JSON.stringify(isProduction ? 'production' : 'development'),
                 'process.env.APP_VERSION': JSON.stringify(process.env.APP_VERSION),
             }),

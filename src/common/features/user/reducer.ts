@@ -10,7 +10,11 @@ const reducer = combineReducers({
         .handleAction([loadUserAsync.success, loadUserAsync.failure], (_state, _action) => false),
     user: createReducer({} as UserModels.User)
         .handleAction(createUserAsync.request, (state, _action) => ({ ...state, isLoading: true }))
-        .handleAction([loadUserAsync.success, createUserAsync.success], (state, action) => ({ ...state, ...action.payload }))
+        .handleAction([loadUserAsync.success, createUserAsync.success], (state, action) => ({
+            ...state,
+            ...action.payload,
+            isLoading: false,
+        }))
         .handleAction(createUserAsync.failure, (state, _action) => ({ ...state, email: '', isLoading: false })),
 });
 
