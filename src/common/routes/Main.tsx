@@ -1,18 +1,20 @@
 import React from 'react';
 import { Switch, Route } from 'react-router';
 
-import LandingView from '../features/landing/components/Landing';
-import AuthenticationView from '../features/user/components';
+import Router from './Router';
 
-import { getPath } from '../routing';
+import { RouteType } from './Router';
 
-export default function Main() {
+const Main = () => {
     return (
         <React.Fragment>
             <Switch>
-                <Route exact path={getPath('home')} component={LandingView} />
-                <Route path={getPath('authentication')} component={AuthenticationView} />
+                {Router.map((route: RouteType, index: number) => (
+                    <Route key={index} path={route.path} exact={route.exact} component={route.component} />
+                ))}
             </Switch>
         </React.Fragment>
     );
-}
+};
+
+export default Main;

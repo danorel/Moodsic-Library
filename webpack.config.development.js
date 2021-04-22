@@ -17,8 +17,13 @@ const client = (isProduction) =>
     merge(common,{
         name: 'client',
         target: 'web',
-        devtool: 'inline-source-map',
-        entry: path.resolve(__dirname, 'src/client/index.tsx'),
+        devtool: 'source-map',
+        entry: [
+            !isProduction && 'react-hot-loader/patch',
+            !isProduction && 'webpack-hot-middleware/client',
+            !isProduction && 'css-hot-loader/hotModuleReplacement',
+            path.resolve(__dirname, 'src/client/index.tsx')
+        ],
         module: {
             rules: [
                 {
@@ -167,8 +172,9 @@ const client = (isProduction) =>
             }),
         ].filter(Boolean),
         output: {
-            filename: 'bundle-[contenthash].js',
+            filename: '[name].js',
             path: path.resolve(__dirname, 'build'),
+            publicPath: '/',
         },
     });
 
@@ -176,7 +182,11 @@ const server = (isProduction) =>
     merge(common, {
         name: 'server',
         target: 'node',
-        externals: [nodeExternals()],
+        devtool: 'source-map',
+        node: { __dirname: false },
+        externals: [
+            nodeExternals({ allowlist: [/\.(?!(?:tsx?|json)$).{1,5}$/i] })
+        ],
         entry: path.resolve(__dirname, 'src/server/index.tsx'),
         module: {
             rules: [
@@ -213,6 +223,7 @@ const server = (isProduction) =>
         ],
         output: {
             filename: "server.js",
+            libraryTarget: 'commonjs2',
             path: path.resolve(__dirname, "build")
         },
     });
