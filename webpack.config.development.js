@@ -18,12 +18,7 @@ const client = (isProduction) =>
         name: 'client',
         target: 'web',
         devtool: 'source-map',
-        entry: [
-            !isProduction && 'react-hot-loader/patch',
-            !isProduction && 'webpack-hot-middleware/client',
-            !isProduction && 'css-hot-loader/hotModuleReplacement',
-            path.resolve(__dirname, 'src/client/index.tsx')
-        ],
+        entry: path.resolve(__dirname, 'src/client/index.tsx'),
         module: {
             rules: [
                 {
@@ -187,7 +182,7 @@ const server = (isProduction) =>
         externals: [
             nodeExternals({ allowlist: [/\.(?!(?:tsx?|json)$).{1,5}$/i] })
         ],
-        entry: path.resolve(__dirname, 'src/server/index.tsx'),
+        entry: path.resolve(__dirname, 'src', 'server', 'index.tsx'),
         module: {
             rules: [
                 {

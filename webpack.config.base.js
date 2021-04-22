@@ -15,7 +15,6 @@ module.exports = (_env, argv) => ({
             'node_modules'
         ],
         alias: {
-            'react-dom': '@hot-loader/react-dom',
             common: path.resolve(__dirname, 'src/common/'),
             client: path.resolve(__dirname, 'src/client/'),
             server: path.resolve(__dirname, 'src/server/'),
@@ -36,7 +35,6 @@ module.exports = (_env, argv) => ({
                     loader: 'babel-loader',
                     options: {
                         compact: false,
-                        presets: [['es2015', { modules: false, loose: true }], 'react'],
                         cacheDirectory: true,
                         cacheCompression: false,
                         envName: argv.mode,
@@ -45,12 +43,7 @@ module.exports = (_env, argv) => ({
             },
         ]
     },
-    plugins: argv.mode !== 'production' ? [
-        new webpack.HotModuleReplacementPlugin(),
-        new MiniCssExtractPlugin({
-            filename: 'stylesheets/[name].css',
-        }),
-    ] : [
+    plugins: [
         new MiniCssExtractPlugin({
             filename: 'stylesheets/[name].css',
         }),
